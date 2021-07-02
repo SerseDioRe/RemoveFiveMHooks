@@ -74,8 +74,12 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 
-	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "ntdll.dll"), "NtProtectVirtualMemory")), (BYTE*)"\x4C\x8B\xD1\xB8\x50\x00\x00\x00\xF6\x04\x25\x08\x03\xFE\x7F\x01", 16, hProc);
-	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "kernel32.dll"), "BaseThreadInitThunk")), (BYTE*)"\x48\x83\xEC\x28\x85\xC9", 6, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "ntdll.dll"),      "NtProtectVirtualMemory")), (BYTE*)"\x4C\x8B\xD1\xB8\x50\x00\x00\x00\xF6\x04\x25\x08\x03\xFE\x7F\x01", 16, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "kernel32.dll"),   "BaseThreadInitThunk")),    (BYTE*)"\x48\x83\xEC\x28\x85\xC9", 6, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "kernel32.dll"),   "LoadLibraryExW")),         (BYTE*)"\x48\xFF\x25\x11\x67\x06\x00\xCC", 8, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "KernelBase.dll"), "LoadLibraryExW")),         (BYTE*)"\x40\x55\x53\x57\x48\x8B\xEC", 7, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "ntdll.dll"),      "LdrLoadDll")),             (BYTE*)"\x48\x89\x5C\x24\x10", 5, hProc);
+	PatchEx((BYTE*)(GetProcAddress((HMODULE)GetModuleBaseAddress(PID, "ntdll.dll"),      "NtOpenFile")),             (BYTE*)"\x4C\x8B\xD1\xB8\x33\x00\x00\x00\xF6\x04\x25\x08\x03\xFE\x7F\x01", 16, hProc);
 
 	CloseHandle(hProc);
 
