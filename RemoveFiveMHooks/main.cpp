@@ -3,6 +3,7 @@
 #include <TlHelp32.h>
 
 //InsideExploit is gay
+//Desudo don't buy drug
 
 void PatchEx(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess) {
 	DWORD oldprotect;
